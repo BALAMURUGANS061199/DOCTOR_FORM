@@ -2,46 +2,54 @@ import React, { useState } from "react";
 
 function App() {
   const [formData, setFormData] = useState({
-    patientID: "",
-    name: "",
-    age: "",
-    gender: "",
-    admissionDate: "",
-    surgeryDate: "",
-    surgicalSide: "",
-    comorbidities: "",
-    previousSurgeries: "",
-    allergies: "",
-    medications: "",
-    kneeClassificationStage: "",
-    deformityDetails: "",
-    preOpROM: "",
-    postOpROM: "",
-    preOpPainScore: "",
-    preOpFunctionScore: "",
-    postOpPainScore: "",
-    postOpFunctionScore: "",
-    preOpExam: "",
-    gaitAnalysisPreOp: "",
-    functionalAssessmentPreOp: "",
-    complications: "",
-    postOpExam: "",
-    gaitAnalysisPostOp: "",
-    functionalAssessmentPostOp: "",
-    preOpImaging: "",
-    preOpFindings: "",
-    jointSpaceWidthPreOp: "",
-    alignmentAnglesPreOp: "",
-    postOpImaging: "",
-    postOpFindings: "",
-    jointSpaceWidthPostOp: "",
-    alignmentAnglesPostOp: "",
-    followUpDate: "",
-    clinicalOutcome: "",
-    patientSatisfaction: "",
-    additionalComments: "",
-    researcherName: "",
-    institution: "",
+    order_wise_date: "",
+    dob: "",
+    height: "",
+    weight: "",
+    sex: "",
+    symptomatic: "",
+    ethnicity: "",
+    replacement_operation_date: "",
+    surgeon_name: "",
+    knee_replacement: "",
+    functional_classification: "",
+    anatomic_alignment: "",
+    measured_in_full_extension: "",
+    measured_at_90_degrees: "",
+    range_of_motion: "",
+    flexion_contracture: "",
+    extensor_lag: "",
+    pain_with_level_walking: "",
+    pain_with_stairs_or_inclines: "",
+    knee_feel: "",
+    satisfied_pain_level: "",
+    satisfied_knee_while_lying: "",
+    satisfied_knee_function_getting_out_of_bed: "",
+    satisfied_knee_function_light_household_duties: "",
+    satisfied_recreational_activities: "",
+    knee_pain: "",
+    normal_activities: "",
+    recreational_or_sports_activities: "",
+    without_aids: "",
+    following_aids: "",
+    use_these_aids: "",
+    knee_discomfort: "",
+    before_stopping_due_to_knee_discomfort: "",
+    uneven_surface: "",
+    pivoting: "",
+    climbing_up: "",
+    without_arms: "",
+    out_of_car: "",
+    moving_laterally: "",
+    stool: "",
+    bag_for_a_block: "",
+    squatting: "",
+    kneeling: "",
+    running: "",
+    knee_activities: "",
+    activity1: "",
+    activity2: "",
+    activity3: "",
   });
 
   const [customSide, setCustomSide] = useState("");
@@ -58,15 +66,31 @@ function App() {
   const handleNext = () => setCurrentStep(currentStep + 1);
   const handlePrevious = () => setCurrentStep(currentStep - 1);
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Form submitted:", formData);
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    const missingFields = Object.entries(formData).filter(
+      ([key, value]) => !value
+    );
+
+    if (missingFields.length > 0) {
+      const fieldNames = missingFields.map(([key]) => key).join(", ");
+      alert(`Please fill out all required fields: ${fieldNames}`);
+      return; // Stop submission if there are missing fields
+    }
+
+    // Proceed with form submission if all fields are filled
+    console.log("Form submitted successfully!");
   };
 
   return (
     <div
       className="max-w-4xl mx-auto p-8 rounded-lg shadow-lg"
-      style={{ backgroundColor: "#bad9ff" }}
+      style={{ backgroundColor: "#a7bedb" }}
     >
       <h2 className="text-2xl font-bold text-center mb-6">
         Robotic Knee Joint Replacement Study
@@ -88,8 +112,8 @@ function App() {
                 </label>
                 <input
                   type="date"
-                  id="todayDate"
-                  name="todayDate"
+                  id="order_wise_date"
+                  name="order_wise_date"
                   onChange={handleChange}
                   className="input-field"
                   min={new Date().toISOString().split("T")[0]} // Restricts to today and future dates
@@ -98,7 +122,7 @@ function App() {
 
               <div>
                 <label
-                  htmlFor="today Date"
+                  htmlFor="Date Of Birth"
                   className="block  text-gray-700 font-semibold mt-4"
                 >
                   2. Date of Birth
@@ -106,37 +130,37 @@ function App() {
                 <input
                   type="date"
                   id="dob"
-                  name="today Date"
+                  name="dob"
                   onChange={handleChange}
                   className="input-field"
                 />
               </div>
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="height"
                   className="block  text-gray-700 font-semibold mt-4"
                 >
                   3. Height
                 </label>
                 <input
                   type="Number"
-                  id="name"
-                  name="name"
+                  id="height"
+                  name="height"
                   onChange={handleChange}
                   className="input-field"
                 />
               </div>
               <div>
                 <label
-                  htmlFor="age"
+                  htmlFor="weight"
                   className="block  text-gray-700 font-semibold mt-4"
                 >
                   4. Weight
                 </label>
                 <input
                   type="number"
-                  id="age"
-                  name="age"
+                  id="weight"
+                  name="weight"
                   onChange={handleChange}
                   className="input-field"
                 />
@@ -150,8 +174,8 @@ function App() {
                 </label>
                 <select
                   type="text"
-                  id="gender"
-                  name="gender"
+                  id="sex"
+                  name="sex"
                   onChange={handleChange}
                   className="input-field"
                 >
@@ -168,22 +192,22 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="admissionSide"
+                      name="symptomatic"
                       value="Right"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="admission-side-right"
+                      id="symptomatic"
                     />
                     <span>Right</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="admissionSide"
+                      name="symptomatic"
                       value="Left"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="admission-side-left"
+                      id="symptomatic"
                     />
                     <span>Left</span>
                   </label>
@@ -220,8 +244,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="indian"
-                      value="Black"
+                      name="ethnicity"
+                      value="Indian"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="ethnicity-black"
@@ -274,22 +298,22 @@ function App() {
                 </label>
                 <input
                   type="date"
-                  id="surgeryDate"
-                  name="surgeryDate"
+                  id="replacement_operation_date"
+                  name="replacement_operation_date"
                   onChange={handleChange}
                   className="input-field"
                 />
                 <div>
                   <label
-                    htmlFor="preOpROM"
+                    htmlFor="surgeon_name"
                     className="block  text-gray-700 font-semibold mt-4"
                   >
                     Name Of Surgeon
                   </label>
                   <input
                     type="text"
-                    id="preOpROM"
-                    name="preOpROM"
+                    id="surgeon_name"
+                    name="surgeon_name"
                     onChange={handleChange}
                     className="input-field"
                   />
@@ -297,27 +321,55 @@ function App() {
               </div>
               <div className="flex items-center space-x-4 mt-2">
                 <label className="flex items-center space-x-2">
-                  <label> Will this be a primary</label>
+                  <label>
+                    Will this be a primary or revision knee replacement?
+                  </label>
                   <input
                     type="radio"
-                    name="admissionSide"
-                    value="Right"
+                    name="knee_replacement"
+                    value="Primary"
                     onChange={handleChange}
                     className="input-field-radio"
                     id="admission-side-right"
                   />
-                  <span>Right</span>
+                  <span>Primary</span>
                 </label>
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="admissionSide"
-                    value="Left"
+                    name="knee_replacement"
+                    value="Revision"
                     onChange={handleChange}
                     className="input-field-radio"
                     id="admission-side-left"
                   />
-                  <span>Left</span>
+                  <span>Revision</span>
+                </label>
+              </div>
+              <br />
+              <div className="flex items-center space-x-4 mt-2">
+                <label className="flex items-center space-x-2">
+                  <label> Charnley Functional Classification</label>
+                  <input
+                    type="radio"
+                    name="functional_classification"
+                    value="A Unilateral Knee Arthritis"
+                    onChange={handleChange}
+                    className="input-field-radio"
+                    id="admission-side-right"
+                  />
+                  <span>A Unilateral Knee Arthritis</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="functional_classification"
+                    value=" C1TKR, but remote arthritis affecting ambulation"
+                    onChange={handleChange}
+                    className="input-field-radio"
+                    id="admission-side-left"
+                  />
+                  <span> C1TKR, but remote arthritis affecting ambulation</span>
                 </label>
               </div>
             </div>
@@ -335,8 +387,8 @@ function App() {
                   1. measured on AP standing X-ray
                 </label>
                 <select
-                  id="alignmentXray"
-                  name="alignmentXray"
+                  id="anatomic_alignment"
+                  name="anatomic_alignment"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 >
@@ -358,8 +410,8 @@ function App() {
                   2. Medial / Lateral Instability: measured in full extension
                 </label>
                 <select
-                  id="medialLateralInstability"
-                  name="medialLateralInstability"
+                  id="measured_in_full_extension"
+                  name="measured_in_full_extension"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 >
@@ -376,8 +428,8 @@ function App() {
                   3. Anterior / Posterior Instability: measured at 90 degrees
                 </label>
                 <select
-                  id="anteriorPosteriorInstability"
-                  name="anteriorPosteriorInstability"
+                  id="measured_at_90_degrees"
+                  name="measured_at_90_degrees"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 >
@@ -393,8 +445,8 @@ function App() {
                   4. Range of motion (1 point for each 5 degrees)
                 </label>
                 <select
-                  id="rangeOfMotion"
-                  name="rangeOfMotion"
+                  id="range_of_motion"
+                  name="range_of_motion"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 >
@@ -412,8 +464,8 @@ function App() {
                 </label>
                 <input
                   type="number"
-                  id="painLevelWalking"
-                  name="painLevelWalking"
+                  id="flexion_contracture"
+                  name="flexion_contracture"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 />
@@ -426,8 +478,8 @@ function App() {
                 </label>
                 <input
                   type="number"
-                  id="painStairsInclines"
-                  name="painStairsInclines"
+                  id="extensor_lag"
+                  name="extensor_lag"
                   onChange={handleChange}
                   className="input-field mt-2 w-full"
                 />
@@ -442,7 +494,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="pain_with_level_walking"
                       value="Always"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -453,7 +505,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="pain_with_level_walking"
                       value="Sometimes"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -464,7 +516,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="pain_with_level_walking"
                       value="Never"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -503,7 +555,7 @@ function App() {
                   >
                     <input
                       type="radio"
-                      name="painSatisfactionSitting"
+                      name="satisfied_pain_level"
                       value={label}
                       onChange={handleChange}
                       className="input-field-radio"
@@ -531,7 +583,7 @@ function App() {
                   >
                     <input
                       type="radio"
-                      name="painSatisfactionLying"
+                      name="satisfied_knee_while_lying"
                       value={label}
                       onChange={handleChange}
                       className="input-field-radio"
@@ -559,7 +611,7 @@ function App() {
                   >
                     <input
                       type="radio"
-                      name="kneeFunctionOutOfBed"
+                      name="satisfied_knee_function_getting_out_of_bed"
                       value={label}
                       onChange={handleChange}
                       className="input-field-radio"
@@ -587,7 +639,7 @@ function App() {
                   >
                     <input
                       type="radio"
-                      name="painSatisfactionStanding"
+                      name="satisfied_knee_function_light_household_duties"
                       value={label}
                       onChange={handleChange}
                       className="input-field-radio"
@@ -615,7 +667,7 @@ function App() {
                   >
                     <input
                       type="radio"
-                      name="kneeFunctionWalking"
+                      name="satisfied_recreational_activities"
                       value={label}
                       onChange={handleChange}
                       className="input-field-radio"
@@ -633,8 +685,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="kneePainRelief"
-                      value="1"
+                      name="knee_pain"
+                      value="No, not at all (1 pt)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="kneePain-1"
@@ -644,8 +696,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="kneePainRelief"
-                      value="2"
+                      name="knee_pain"
+                      value="Yes, a little bit (2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="kneePain-2"
@@ -655,8 +707,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="kneePainRelief"
-                      value="3"
+                      name="knee_pain"
+                      value="Yes, somewhat (3 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="kneePain-3"
@@ -666,8 +718,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="kneePainRelief"
-                      value="4"
+                      name="knee_pain"
+                      value="Yes, a moderate amount (4 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="kneePain-4"
@@ -677,8 +729,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="kneePainRelief"
-                      value="5"
+                      name="knee_pain"
+                      value="Yes, a lot (5 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="kneePain-5"
@@ -697,55 +749,55 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="dailyLivingActivities"
-                      value="1"
+                      name="normal_activities"
+                      value="No, not at all (1 pt)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="dailyLiving-1"
+                      id="kneePain-1"
                     />
                     <span>No, not at all (1 pt)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="dailyLivingActivities"
-                      value="2"
+                      name="normal_activities"
+                      value="Yes, a little bit (2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="dailyLiving-2"
+                      id="kneePain-2"
                     />
                     <span>Yes, a little bit (2 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="dailyLivingActivities"
-                      value="3"
+                      name="normal_activities"
+                      value="Yes, somewhat (3 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="dailyLiving-3"
+                      id="kneePain-3"
                     />
                     <span>Yes, somewhat (3 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="dailyLivingActivities"
-                      value="4"
+                      name="normal_activities"
+                      value="Yes, a moderate amount (4 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="dailyLiving-4"
+                      id="kneePain-4"
                     />
                     <span>Yes, a moderate amount (4 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="dailyLivingActivities"
-                      value="5"
+                      name="normal_activities"
+                      value="Yes, a lot (5 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="dailyLiving-5"
+                      id="kneePain-5"
                     />
                     <span>Yes, a lot (5 pts)</span>
                   </label>
@@ -761,55 +813,55 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="1"
+                      name="recreational_or_sports_activities"
+                      value="No, not at all (1 pt)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="leisure-1"
+                      id="kneePain-1"
                     />
                     <span>No, not at all (1 pt)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="2"
+                      name="recreational_or_sports_activities"
+                      value="Yes, a little bit (2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="leisure-2"
+                      id="kneePain-2"
                     />
                     <span>Yes, a little bit (2 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="3"
+                      name="recreational_or_sports_activities"
+                      value="Yes, somewhat (3 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="leisure-3"
+                      id="kneePain-3"
                     />
                     <span>Yes, somewhat (3 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="4"
+                      name="recreational_or_sports_activities"
+                      value="Yes, a moderate amount (4 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="leisure-4"
+                      id="kneePain-4"
                     />
                     <span>Yes, a moderate amount (4 pts)</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="recreational_or_sports_activities"
+                      value="Yes, a lot (5 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
-                      id="leisure-5"
+                      id="kneePain-5"
                     />
                     <span>Yes, a lot (5 pts)</span>
                   </label>
@@ -835,7 +887,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="without_aids"
                       value="Always"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -846,7 +898,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="without_aids"
                       value="Sometimes"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -865,8 +917,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="1"
+                      name="following_aids"
+                      value="wheelchair (-10 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-1"
@@ -876,8 +928,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="2"
+                      name="following_aids"
+                      value="walker (-8 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-2"
@@ -887,8 +939,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="3"
+                      name="following_aids"
+                      value="crutches (-8 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-3"
@@ -898,8 +950,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="4"
+                      name="following_aids"
+                      value="two canes (-6 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-4"
@@ -909,8 +961,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="following_aids"
+                      value="one crutch (-4 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -920,7 +972,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
+                      name="following_aids"
                       value="5"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -931,8 +983,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="following_aids"
+                      value="knee sleeve / brace (-2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -949,7 +1001,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="use_these_aids"
                       value="Always"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -960,7 +1012,7 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel"
+                      name="use_these_aids"
                       value="Sometimes"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -979,8 +1031,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="1"
+                      name="knee_discomfort"
+                      value="cannot stand (0 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-1"
@@ -990,8 +1042,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="2"
+                      name="knee_discomfort"
+                      value="0-5 minutes (3 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-2"
@@ -1001,8 +1053,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="3"
+                      name="knee_discomfort"
+                      value="6-15 minutes (6 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-3"
@@ -1012,8 +1064,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="4"
+                      name="knee_discomfort"
+                      value="16-30 minutes (9 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-4"
@@ -1023,8 +1075,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="knee_discomfort"
+                      value="31-60 minutes (12 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1034,8 +1086,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="knee_discomfort"
+                      value="more than an hour (15 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1045,8 +1097,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="knee_discomfort"
+                      value="knee sleeve / brace (-2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1065,8 +1117,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="1"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="cannot stand (0 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-1"
@@ -1076,8 +1128,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="2"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="0-5 minutes (3 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-2"
@@ -1087,8 +1139,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="3"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="6-15 minutes (6 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-3"
@@ -1098,8 +1150,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="4"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="16-30 minutes (9 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-4"
@@ -1109,8 +1161,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="31-60 minutes (12 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1120,8 +1172,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="more than an hour (15 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1131,8 +1183,8 @@ function App() {
                   <label className="flex items-center space-x-2">
                     <input
                       type="radio"
-                      name="leisureActivities"
-                      value="5"
+                      name="before_stopping_due_to_knee_discomfort"
+                      value="knee sleeve / brace (-2 pts)"
                       onChange={handleChange}
                       className="input-field-radio"
                       id="leisure-5"
@@ -1141,22 +1193,6 @@ function App() {
                   </label>
                 </div>
               </div>
-
-              {/* <div>
-                <label
-                  htmlFor="researcherName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="researcherName"
-                  name="researcherName"
-                  onChange={handleChange}
-                  className="input-field"
-                />
-              </div> */}
             </div>
           </section>
         )}
@@ -1174,7 +1210,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1185,7 +1221,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1196,7 +1232,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1207,7 +1243,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1218,7 +1254,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1229,7 +1265,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="uneven_surface"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1249,7 +1285,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1260,7 +1296,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1271,7 +1307,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1282,7 +1318,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1293,7 +1329,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1304,7 +1340,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="pivoting"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1325,7 +1361,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1336,7 +1372,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1347,7 +1383,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1358,7 +1394,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1369,7 +1405,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1380,7 +1416,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="climbing_up"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1401,7 +1437,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1412,7 +1448,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1423,7 +1459,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1434,7 +1470,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1445,7 +1481,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1456,7 +1492,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="without_arms"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1477,7 +1513,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1488,7 +1524,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1499,7 +1535,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1510,7 +1546,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1521,7 +1557,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1532,7 +1568,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="out_of_car"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1553,7 +1589,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="no bother"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1564,7 +1600,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="slight"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1575,7 +1611,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="moderate"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1586,7 +1622,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1597,7 +1633,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="very severe"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1608,7 +1644,7 @@ function App() {
                   <label className="flex items-center mb-2">
                     <input
                       type="radio"
-                      name="normalKneeFeel1"
+                      name="moving_laterally"
                       value="I never do this"
                       onChange={handleChange}
                       className="input-field-radio"
@@ -1634,7 +1670,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="stool"
                     value="Always"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1645,7 +1681,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="stool"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1656,7 +1692,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="stool"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1667,7 +1703,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="stool"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1678,7 +1714,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="stool"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1696,7 +1732,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="bag_for_a_block"
                     value="Always"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1707,7 +1743,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="bag_for_a_block"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1718,7 +1754,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="bag_for_a_block"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1729,7 +1765,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="bag_for_a_block"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1740,7 +1776,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="bag_for_a_block"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1758,7 +1794,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="squatting"
                     value="Always"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1769,7 +1805,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="squatting"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1780,7 +1816,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="squatting"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1791,7 +1827,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="squatting"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1802,7 +1838,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="squatting"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1820,7 +1856,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="kneeling"
                     value="Always"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1831,7 +1867,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="kneeling"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1842,7 +1878,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="kneeling"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1853,7 +1889,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="kneeling"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1864,7 +1900,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="kneeling"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1882,7 +1918,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="running"
                     value="Always"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1893,7 +1929,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="running"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1904,7 +1940,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="running"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1915,7 +1951,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="running"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1926,7 +1962,7 @@ function App() {
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="normalKneeFeel"
+                    name="running"
                     value="Sometimes"
                     onChange={handleChange}
                     className="input-field-radio"
@@ -1970,7 +2006,7 @@ function App() {
                     <label key={i} className="flex items-center space-x-2">
                       <input
                         type="checkbox"
-                        name="activities"
+                        name="knee_activities"
                         value={activity}
                         onChange={handleChange}
                         className="input-field-checkbox"
@@ -1986,12 +2022,42 @@ function App() {
                 htmlFor="age"
                 className="block  text-gray-700 font-semibold mt-4"
               >
-                4. Weight
+                1. Activity
               </label>
               <input
-                type="number"
-                id="age"
-                name="age"
+                type="text"
+                id="activity1"
+                name="activity1"
+                onChange={handleChange}
+                className="input-field"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="age"
+                className="block  text-gray-700 font-semibold mt-4"
+              >
+                2. Activity
+              </label>
+              <input
+                type="text"
+                id="activity2"
+                name="activity2"
+                onChange={handleChange}
+                className="input-field"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="age"
+                className="block  text-gray-700 font-semibold mt-4"
+              >
+                3. Activity
+              </label>
+              <input
+                type="text"
+                id="activity3"
+                name="activity3"
                 onChange={handleChange}
                 className="input-field"
               />
