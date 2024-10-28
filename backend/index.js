@@ -1,6 +1,7 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
+
 const app = express();
 
 // MySQL database connection
@@ -53,7 +54,6 @@ app.post("/add-patient", (req, res) => {
     satisfied_knee_function_getting_out_of_bed,
     satisfied_knee_function_light_household_duties,
     satisfied_recreational_activities,
-    knee_pain,
     normal_activities,
     recreational_or_sports_activities,
     without_aids,
@@ -86,12 +86,12 @@ app.post("/add-patient", (req, res) => {
       measured_at_90_degrees, range_of_motion, flexion_contracture, extensor_lag, pain_with_level_walking,
       pain_with_stairs_or_inclines, knee_feel, satisfied_pain_level, satisfied_knee_while_lying,
       satisfied_knee_function_getting_out_of_bed, satisfied_knee_function_light_household_duties, 
-      satisfied_recreational_activities, knee_pain, normal_activities, recreational_or_sports_activities, 
+      satisfied_recreational_activities, normal_activities, recreational_or_sports_activities, 
       without_aids, following_aids, use_these_aids, knee_discomfort, before_stopping_due_to_knee_discomfort,
       uneven_surface, pivoting, climbing_up, without_arms, out_of_car, moving_laterally, stool, 
       bag_for_a_block, squatting, kneeling, running, knee_activities, activity1, activity2, activity3
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   const values = [
     order_wise_date,
@@ -119,7 +119,6 @@ app.post("/add-patient", (req, res) => {
     satisfied_knee_function_getting_out_of_bed,
     satisfied_knee_function_light_household_duties,
     satisfied_recreational_activities,
-    knee_pain,
     normal_activities,
     recreational_or_sports_activities,
     without_aids,
@@ -151,22 +150,25 @@ app.post("/add-patient", (req, res) => {
       res.status(500).json({ error: "Failed to insert data" });
     } else {
       res.status(200).json({
-        message: "Patient Datas inserted successfully",
+        message: "Patient data inserted successfully",
         patientId: result.insertId,
       });
     }
   });
 });
 
+// GET route to retrieve patients
 app.get("/get-patients", (req, res) => {
-  const query1 = "Select * from patients";
+  const query1 = "SELECT * FROM patients";
   db.query(query1, (err, list) => {
     if (err) {
-      console.log(err);
+      console.error("Error retrieving data:", err);
+      return res.status(500).json({ error: "Failed to retrieve data" });
     }
-    return res.status(200).json({ message: "Patients List", list });
+    res.status(200).json({ message: "Patients List", list });
   });
 });
+
 // Start the server
 app.listen(5000, () => {
   console.log("Server running on port 5000");
