@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* tailwind.css */
+/* tailwind.css */
+.input-field {
+  @apply w-full p-4 border border-[rgb(114,198,250)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100;
+}
